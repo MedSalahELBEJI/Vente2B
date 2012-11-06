@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<div>
+	<h:form id="form2">
+
+
+		<h:messages showDetail="false" showSummary="true" />
+
+		<h:panelGrid id="MembreDetail" columns="3">
+
+			<h:outputText value="Nom :" />
+			<h:outputText value="(*)" style="color: red" />
+			<h:inputText value="#{inscriptionMB.mbr.nom}" required="true"
+				label="Nom " />
+			<h:outputText value="Prénom :" />
+			<h:outputText value="(*)" style="color: red" />
+			<h:inputText value="#{inscriptionMB.mbr.prenom}" required="true"
+				label="Prénom ">
+			</h:inputText>
+			<h:outputText value="Identifiant:" />
+			<h:outputText value="(*)" style="color: red" />
+			<h:inputText value="#{inscriptionMB.mbr.login}" required="true"
+				label="Identifiant">
+
+			</h:inputText>
+			
+			<h:outputText value=" Mot de passe :" />
+			<h:outputText value="(*)" style="color: red" />
+			<h:inputSecret value="#{inscriptionMB.mbr.password}" required="true"
+				label="Mot de passe" feedback="true" />
+
+			<h:outputText value="Adresse e-mail :" />
+			<h:outputText value="(*)" style="color: red" />
+			<h:inputText value="#{inscriptionMB.mbr.email}" required="true"
+				label="Adresse e-mail" validatorMessage="Invalid Email">
+				<f:validateRegex pattern=".+@.+\.[a-z]+"></f:validateRegex>
+			</h:inputText>
+
+		</h:panelGrid>
+
+
+		<h:panelGrid id="addButton" columns="2" style="margin-left: 260px">
+			<h:commandButton id="addUser" value="Ajouter"
+				action="#{inscriptionMB.addMembre}" ajax="false"
+				icon="ui-icon-check" />
+			<h:commandButton value="Annuler" type="reset" icon="ui-icon-cancel" />
+		</h:panelGrid>
+
+
+	</h:form>
+</div>
+</html>
