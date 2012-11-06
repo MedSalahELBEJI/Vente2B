@@ -1,8 +1,11 @@
 package com.tn.isamm.developpement.VenteAuxEnchere.daoImp;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import com.tn.isamm.developpement.VenteAuxEnchere.dao.MembreDao;
 import com.tn.isamm.developpement.VenteAuxEnchere.model.Membre;
@@ -40,6 +43,20 @@ public class MembreDaoImp implements MembreDao {
 		// TODO Auto-generated method stub
 		Membre membre = em.find(Membre.class, id);
 		return membre;
+	}
+
+	public List<Membre> getAll() {
+		// TODO Auto-generated method stub
+		String sql = "SELECT m FROM Membre m ";
+		Query query = em.createQuery(sql, Membre.class);
+		List<Membre> list = query.getResultList();
+		if (list.size() != 0) {
+		
+			return list;
+		} else {
+			
+			return null;
+		}
 	}
 
 }

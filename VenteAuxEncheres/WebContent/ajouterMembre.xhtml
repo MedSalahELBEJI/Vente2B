@@ -26,7 +26,7 @@
 				label="Identifiant">
 
 			</h:inputText>
-			
+
 			<h:outputText value=" Mot de passe :" />
 			<h:outputText value="(*)" style="color: red" />
 			<h:inputSecret value="#{inscriptionMB.mbr.password}" required="true"
@@ -50,6 +50,58 @@
 		</h:panelGrid>
 
 
+	</h:form>
+	<h:form id="form3">
+
+
+		<h:dataTable var="s" value="#{inscriptionMB.membreList}" border="1">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Nom"></h:outputText>
+				</f:facet>
+				<h:outputText id="id" value="#{s.nom}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Prénom"></h:outputText>
+				</f:facet>
+				<h:outputText id="name" value="#{s.prenom}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Email"></h:outputText>
+				</f:facet>
+				<h:outputText id="email" value="#{s.email}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Login"></h:outputText>
+				</f:facet>
+				<h:outputText id="login" value="#{s.login}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Mot de passe"></h:outputText>
+				</f:facet>
+				<h:outputText id="password" value="#{s.password}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Manage"></h:outputText>
+				</f:facet>
+				<h:form>
+					<h:commandButton action="#{inscriptionMB.editMembre}" value="Edit">
+						<f:setPropertyActionListener value="#{s.idMbr}"
+							target="#{inscriptionMB.membre.idMbr}" />
+					</h:commandButton>
+					<h:commandButton action="#{inscriptionMB.deleteMembre}"
+						value="Delete">
+						<f:setPropertyActionListener value="#{s.idMbr}"
+							target="#{inscriptionMB.membre.idMbr}" />
+					</h:commandButton>
+				</h:form>
+			</h:column>
+		</h:dataTable>
 	</h:form>
 </div>
 </html>
