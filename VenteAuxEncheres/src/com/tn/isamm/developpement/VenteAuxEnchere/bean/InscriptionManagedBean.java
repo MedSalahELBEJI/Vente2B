@@ -2,13 +2,12 @@ package com.tn.isamm.developpement.VenteAuxEnchere.bean;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import com.tn.isamm.developpement.VenteAuxEnchere.dao.MembreDao;
-import com.tn.isamm.developpement.VenteAuxEnchere.daoImp.MembreDaoImp;
-import com.tn.isamm.developpement.VenteAuxEnchere.model.Membre;
+import com.tn.isamm.developpement.VenteAuxEnchere.dao.VendeurDao;
+import com.tn.isamm.developpement.VenteAuxEnchere.daoImp.VendeurDaoImp;
+import com.tn.isamm.developpement.VenteAuxEnchere.model.Vendeur;
 
 @ManagedBean(name = "inscriptionMB")
 @SessionScoped
@@ -18,29 +17,29 @@ public class InscriptionManagedBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Membre mbr = new Membre();
-	private MembreDao membreDao = new MembreDaoImp();
-	private List<Membre> membreList;
+	private Vendeur vendeur = new Vendeur();
+	private VendeurDao vendeurDao = new VendeurDaoImp();
+	private List<Vendeur> vendeurList;
 
 	@PostConstruct
 	public void initBean() {
 
 		try {
-			membreList = membreDao.getAll();
+			vendeurList = vendeurDao.getAll();
 
-			// optList = new ArrayList<Operator>(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	// Add Membre
-	public void addMembre() {
+	// Add Vendeur
+	public void addVendeur() {
 		try {
 
-			membreDao.ajouterMembre(mbr);
+			vendeurDao.ajouterVendeur(vendeur);
+			vendeurList = vendeurDao.getAll();
 
-			mbr = new Membre();
+			vendeur = new Vendeur();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -49,22 +48,23 @@ public class InscriptionManagedBean implements Serializable {
 
 	}
 
-	public Membre getMbr() {
-		return mbr;
+	public Vendeur getVendeur() {
+		return vendeur;
 	}
 
-	public void setMbr(Membre mbr) {
-		this.mbr = mbr;
+	public void setVendeur(Vendeur vendeur) {
+		this.vendeur = vendeur;
 	}
 
-	public List<Membre> getMembreList() {
-		if (membreList == null)
-			membreList = membreDao.getAll();
-		return membreList;
+	public List<Vendeur> getVendeurList() {
+
+		if (vendeurList == null)
+			vendeurList = vendeurDao.getAll();
+		return vendeurList;
 	}
 
-	public void setMembreList(List<Membre> membreList) {
-		this.membreList = membreList;
+	public void setVendeurList(List<Vendeur> vendeurList) {
+		this.vendeurList = vendeurList;
 	}
 
 }

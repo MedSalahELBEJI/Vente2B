@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="myPersistenceUnit" transaction-type="RESOURCE_LOCAL">
-		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.Membre</class>
-		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.Pays</class>
+		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.Enchereur</class>
 		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.Categorie</class>
-		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.Objet</class>
-		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.Note</class>
-		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.Historique</class>
+		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.ActEnchere</class>
+		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.Produit</class>
+		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.VEnchere</class>
+		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.Personne</class>
+		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.Vendeur</class>
 	<properties>
 			<property name="javax.persistence.jdbc.password" value="" />
 			<property name="javax.persistence.jdbc.user" value="root" />

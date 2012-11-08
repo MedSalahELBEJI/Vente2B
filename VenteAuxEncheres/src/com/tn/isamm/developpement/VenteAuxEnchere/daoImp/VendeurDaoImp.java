@@ -6,55 +6,52 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import com.tn.isamm.developpement.VenteAuxEnchere.dao.VendeurDao;
+import com.tn.isamm.developpement.VenteAuxEnchere.model.Vendeur;
 
-import com.tn.isamm.developpement.VenteAuxEnchere.dao.MembreDao;
-import com.tn.isamm.developpement.VenteAuxEnchere.model.Membre;
-
-public class MembreDaoImp implements MembreDao {
+public class VendeurDaoImp implements VendeurDao {
 
 	private static EntityManagerFactory emf = Persistence
 			.createEntityManagerFactory("myPersistenceUnit");
 
 	private static EntityManager em = emf.createEntityManager();
 
-	public void ajouterMembre(Membre membre) {
+	public void ajouterVendeur(Vendeur vendeur) {
 		// TODO Auto-generated method stub
 		em.getTransaction().begin();
-		em.persist(membre);
+		em.persist(vendeur);
 		em.getTransaction().commit();
 	}
 
-	public void modifierMembre(Membre membre) {
+	public void modifierVendeur(Vendeur vendeur) {
 		// TODO Auto-generated method stub
 		em.getTransaction().begin();
-		em.merge(membre);
+		em.merge(vendeur);
 		em.getTransaction().commit();
 	}
 
-	public void supprimerMembre(Membre membre) {
+	public void supprimerVendeur(Vendeur vendeur) {
 		// TODO Auto-generated method stub
-		membre = findById(membre.getIdMbr());
+		vendeur = findById(vendeur.getIdPersonne());
 		em.getTransaction().begin();
-		em.remove(membre);
+		em.remove(vendeur);
 		em.getTransaction().commit();
 	}
 
-	public Membre findById(long id) {
+	public Vendeur findById(long id) {
 		// TODO Auto-generated method stub
-		Membre membre = em.find(Membre.class, id);
-		return membre;
+		Vendeur vendeur = em.find(Vendeur.class, id);
+		return vendeur;
 	}
 
-	public List<Membre> getAll() {
+	public List<Vendeur> getAll() {
 		// TODO Auto-generated method stub
-		String sql = "SELECT m FROM Membre m ";
-		Query query = em.createQuery(sql, Membre.class);
-		List<Membre> list = query.getResultList();
+		String sql = "SELECT v FROM Vendeur v ";
+		Query query = em.createQuery(sql, Vendeur.class);
+		List<Vendeur> list = query.getResultList();
 		if (list.size() != 0) {
-		
 			return list;
 		} else {
-			
 			return null;
 		}
 	}

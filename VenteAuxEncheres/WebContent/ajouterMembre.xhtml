@@ -9,32 +9,32 @@
 
 		<h:messages showDetail="false" showSummary="true" />
 
-		<h:panelGrid id="MembreDetail" columns="3">
+		<h:panelGrid id="VendeurDetail" columns="3">
 
 			<h:outputText value="Nom :" />
 			<h:outputText value="(*)" style="color: red" />
-			<h:inputText value="#{inscriptionMB.mbr.nom}" required="true"
+			<h:inputText value="#{inscriptionMB.vendeur.nom}" required="true"
 				label="Nom " />
 			<h:outputText value="Prénom :" />
 			<h:outputText value="(*)" style="color: red" />
-			<h:inputText value="#{inscriptionMB.mbr.prenom}" required="true"
+			<h:inputText value="#{inscriptionMB.vendeur.prenom}" required="true"
 				label="Prénom ">
 			</h:inputText>
 			<h:outputText value="Identifiant:" />
 			<h:outputText value="(*)" style="color: red" />
-			<h:inputText value="#{inscriptionMB.mbr.login}" required="true"
+			<h:inputText value="#{inscriptionMB.vendeur.login}" required="true"
 				label="Identifiant">
 
 			</h:inputText>
 
 			<h:outputText value=" Mot de passe :" />
 			<h:outputText value="(*)" style="color: red" />
-			<h:inputSecret value="#{inscriptionMB.mbr.password}" required="true"
-				label="Mot de passe" feedback="true" />
+			<h:inputSecret value="#{inscriptionMB.vendeur.password}"
+				required="true" label="Mot de passe" feedback="true" />
 
 			<h:outputText value="Adresse e-mail :" />
 			<h:outputText value="(*)" style="color: red" />
-			<h:inputText value="#{inscriptionMB.mbr.email}" required="true"
+			<h:inputText value="#{inscriptionMB.vendeur.email}" required="true"
 				label="Adresse e-mail" validatorMessage="Invalid Email">
 				<f:validateRegex pattern=".+@.+\.[a-z]+"></f:validateRegex>
 			</h:inputText>
@@ -44,17 +44,17 @@
 
 		<h:panelGrid id="addButton" columns="2" style="margin-left: 260px">
 			<h:commandButton id="addUser" value="Ajouter"
-				action="#{inscriptionMB.addMembre}" ajax="false"
-				icon="ui-icon-check" />
+				action="#{inscriptionMB.addVendeur}" ajax="false"
+				update="vendeurList" icon="ui-icon-check" />
 			<h:commandButton value="Annuler" type="reset" icon="ui-icon-cancel" />
 		</h:panelGrid>
 
 
 	</h:form>
+
 	<h:form id="form3">
-
-
-		<h:dataTable var="s" value="#{inscriptionMB.membreList}" border="1">
+		<h:dataTable var="s" value="#{inscriptionMB.vendeurList}" border="1"
+			widgetVar="vendeurList">
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="Nom"></h:outputText>
@@ -103,5 +103,6 @@
 			</h:column>
 		</h:dataTable>
 	</h:form>
+
 </div>
 </html>

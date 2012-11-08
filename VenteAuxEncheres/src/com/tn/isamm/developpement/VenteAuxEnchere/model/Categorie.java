@@ -1,42 +1,43 @@
 package com.tn.isamm.developpement.VenteAuxEnchere.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
 /**
  * Entity implementation class for Entity: Categorie
  *
  */
 @Entity
-@Table(name = "Categorie")
+
 public class Categorie implements Serializable {
 
 	   
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long idCat;
+	private long idCategorie;
 	private String nomCat;
 	private String description;
-	@OneToOne(cascade = CascadeType.MERGE)
-	private Objet objet;
 	private static final long serialVersionUID = 1L;
+	@OneToMany(cascade = CascadeType.MERGE)
+	private List<Produit> produit;
 
 	public Categorie() {
 		super();
-	}   
-	public long getIdCat() {
-		return this.idCat;
 	}
 
-	public void setIdCat(long idCat) {
-		this.idCat = idCat;
+	public long getIdCategorie() {
+		return this.idCategorie;
+	}
+
+	public void setIdCategorie(long idCategorie) {
+		this.idCategorie = idCategorie;
 	}   
 	public String getNomCat() {
 		return this.nomCat;
@@ -52,11 +53,13 @@ public class Categorie implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Objet getObjet() {
-		return objet;
+
+	public List<Produit> getProduit() {
+		return produit;
 	}
-	public void setObjet(Objet objet) {
-		this.objet = objet;
+
+	public void setProduit(List<Produit> produit) {
+		this.produit = produit;
 	}
    
 }
