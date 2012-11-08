@@ -3,8 +3,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<div>
-	<h:form id="form2">
+<div style="float:left">
+	<h:form id="form2" >
 
 
 		<h:messages showDetail="false" showSummary="true" />
@@ -51,7 +51,6 @@
 
 
 	</h:form>
-
 	<h:form id="form3">
 		<h:dataTable var="s" value="#{inscriptionMB.vendeurList}" border="1"
 			widgetVar="vendeurList">
@@ -103,6 +102,109 @@
 			</h:column>
 		</h:dataTable>
 	</h:form>
-
 </div>
+<div style="float:left">
+	<h:form id="form4" >
+
+
+		<h:messages showDetail="false" showSummary="true" />
+
+		<h:panelGrid id="EnchereurDetail" columns="3">
+
+			<h:outputText value="Nom :" />
+			<h:outputText value="(*)" style="color: red" />
+			<h:inputText value="#{inscriptionMB.enchereur.nom}" required="true"
+				label="Nom " />
+			<h:outputText value="Prénom :" />
+			<h:outputText value="(*)" style="color: red" />
+			<h:inputText value="#{inscriptionMB.enchereur.prenom}" required="true"
+				label="Prénom ">
+			</h:inputText>
+			<h:outputText value="Identifiant:" />
+			<h:outputText value="(*)" style="color: red" />
+			<h:inputText value="#{inscriptionMB.enchereur.login}" required="true"
+				label="Identifiant">
+
+			</h:inputText>
+
+			<h:outputText value=" Mot de passe :" />
+			<h:outputText value="(*)" style="color: red" />
+			<h:inputSecret value="#{inscriptionMB.enchereur.password}"
+				required="true" label="Mot de passe" feedback="true" />
+
+			<h:outputText value="Adresse e-mail :" />
+			<h:outputText value="(*)" style="color: red" />
+			<h:inputText value="#{inscriptionMB.enchereur.email}" required="true"
+				label="Adresse e-mail" validatorMessage="Invalid Email">
+				<f:validateRegex pattern=".+@.+\.[a-z]+"></f:validateRegex>
+			</h:inputText>
+
+		</h:panelGrid>
+
+
+		<h:panelGrid id="addButton" columns="2" style="margin-left: 260px">
+			<h:commandButton id="addUser" value="Ajouter"
+				action="#{inscriptionMB.addEnchereur}" ajax="false"
+				update="enchereurList" icon="ui-icon-check" />
+			<h:commandButton value="Annuler" type="reset" icon="ui-icon-cancel" />
+		</h:panelGrid>
+
+
+	</h:form>
+	<h:form id="form5">
+		<h:dataTable var="s" value="#{inscriptionMB.enchereurList}" border="1"
+			widgetVar="enchereurList">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Nom"></h:outputText>
+				</f:facet>
+				<h:outputText id="id" value="#{s.nom}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Prénom"></h:outputText>
+				</f:facet>
+				<h:outputText id="name" value="#{s.prenom}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Email"></h:outputText>
+				</f:facet>
+				<h:outputText id="email" value="#{s.email}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Login"></h:outputText>
+				</f:facet>
+				<h:outputText id="login" value="#{s.login}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Mot de passe"></h:outputText>
+				</f:facet>
+				<h:outputText id="password" value="#{s.password}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Manage"></h:outputText>
+				</f:facet>
+				<h:form>
+					<h:commandButton action="#{inscriptionMB.editMembre}" value="Edit">
+						<f:setPropertyActionListener value="#{s.idMbr}"
+							target="#{inscriptionMB.membre.idMbr}" />
+					</h:commandButton>
+					<h:commandButton action="#{inscriptionMB.deleteMembre}"
+						value="Delete">
+						<f:setPropertyActionListener value="#{s.idMbr}"
+							target="#{inscriptionMB.membre.idMbr}" />
+					</h:commandButton>
+				</h:form>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+	
+</div>
+	
+
+
 </html>
