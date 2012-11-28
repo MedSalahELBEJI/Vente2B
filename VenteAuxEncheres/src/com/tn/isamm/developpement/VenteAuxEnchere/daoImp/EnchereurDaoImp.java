@@ -8,8 +8,8 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import com.tn.isamm.developpement.VenteAuxEnchere.dao.EnchereurDao;
+import com.tn.isamm.developpement.VenteAuxEnchere.model.ActEnchere;
 import com.tn.isamm.developpement.VenteAuxEnchere.model.Enchereur;
-import com.tn.isamm.developpement.VenteAuxEnchere.model.Vendeur;
 
 public class EnchereurDaoImp implements EnchereurDao{
 
@@ -57,5 +57,25 @@ public class EnchereurDaoImp implements EnchereurDao{
 		} else {
 			return null;
 		}
+	}
+
+	public List<ActEnchere> getActEnchere(String username) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT p FROM ActEnchere p ,Enchereur v WHERE p.enchereur.idPersonne=v.idPersonne AND v.login='"
+			+ username + "'";
+	Query query = em.createQuery(sql, ActEnchere.class);
+	List<ActEnchere> list = query.getResultList();
+	if (list.size() != 0) {
+		return list;
+	} else {
+		return null;
+	}
+}
+
+	public void encherirProduit(ActEnchere actEnchere) {
+		// TODO Auto-generated method stub
+		em.getTransaction().begin();
+		em.persist(actEnchere);
+		em.getTransaction().commit();
 	}
 }

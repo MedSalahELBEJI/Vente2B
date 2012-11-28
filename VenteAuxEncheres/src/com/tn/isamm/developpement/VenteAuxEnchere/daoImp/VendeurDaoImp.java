@@ -7,6 +7,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import com.tn.isamm.developpement.VenteAuxEnchere.dao.VendeurDao;
+import com.tn.isamm.developpement.VenteAuxEnchere.model.Categorie;
+import com.tn.isamm.developpement.VenteAuxEnchere.model.Produit;
+import com.tn.isamm.developpement.VenteAuxEnchere.model.VEnchere;
 import com.tn.isamm.developpement.VenteAuxEnchere.model.Vendeur;
 
 public class VendeurDaoImp implements VendeurDao {
@@ -49,6 +52,60 @@ public class VendeurDaoImp implements VendeurDao {
 		String sql = "SELECT v FROM Vendeur v ";
 		Query query = em.createQuery(sql, Vendeur.class);
 		List<Vendeur> list = query.getResultList();
+		if (list.size() != 0) {
+			return list;
+		} else {
+			return null;
+		}
+	}
+
+	public void ajouterProduit(Produit produit) {
+		// TODO Auto-generated method stub
+		em.getTransaction().begin();
+		em.persist(produit);
+		em.getTransaction().commit();
+	}
+
+	public List<Produit> getAllProduit(String username) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT p FROM Produit p ,Vendeur v WHERE p.vendeur.idPersonne=v.idPersonne AND v.login='"
+				+ username + "'";
+		Query query = em.createQuery(sql, Produit.class);
+		List<Produit> list = query.getResultList();
+		if (list.size() != 0) {
+			return list;
+		} else {
+			return null;
+		}
+	}
+
+	public List<VEnchere> getAllProduit() {
+		// TODO Auto-generated method stub
+		String sql = "SELECT p FROM VEnchere p  ";
+		Query query = em.createQuery(sql, VEnchere.class);
+		List<VEnchere> list = query.getResultList();
+		if (list.size() != 0) {
+			return list;
+		} else {
+			return null;
+		}
+	}
+
+	
+
+	public Categorie findByID(long id) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT c FROM Categorie c WHERE c.idCategorie=" + id;
+		Query query = em.createQuery(sql, Categorie.class);
+		Categorie cat = (Categorie) query.getSingleResult();
+		return cat;
+	}
+
+	public List<Categorie> listCategorie() {
+		// TODO Auto-generated method stub
+		String sql = "SELECT c FROM Categorie c ";
+		Query query = em.createQuery(sql, Categorie.class);
+		List<Categorie> list = query.getResultList();
 		if (list.size() != 0) {
 			return list;
 		} else {

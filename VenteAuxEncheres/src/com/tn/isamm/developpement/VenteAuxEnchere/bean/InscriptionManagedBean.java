@@ -1,11 +1,14 @@
 package com.tn.isamm.developpement.VenteAuxEnchere.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import com.tn.isamm.developpement.VenteAuxEnchere.dao.EnchereurDao;
 import com.tn.isamm.developpement.VenteAuxEnchere.dao.VendeurDao;
@@ -28,6 +31,8 @@ public class InscriptionManagedBean implements Serializable {
 	private VendeurDao vendeurDao = new VendeurDaoImp();
 	private List<Vendeur> vendeurList;
 	private List<Enchereur> enchereurList;
+	private List<SelectItem> listPays;
+	public List<SelectItem> listVille;
 
 	@PostConstruct
 	public void initBean() {
@@ -106,6 +111,28 @@ public class InscriptionManagedBean implements Serializable {
 
 	public void setEnchereurList(List<Enchereur> enchereurList) {
 		this.enchereurList = enchereurList;
+	}
+
+	public List<SelectItem> getListPays() {
+		listPays = new ArrayList<SelectItem>();
+		listPays.add(new SelectItem("Tunisie"));
+		listPays.add(new SelectItem("France"));
+		return listPays;
+	}
+
+	public void setListPays(List<SelectItem> listPays) {
+		this.listPays = listPays;
+	}
+
+	public List<SelectItem> getListVille() {
+		listVille = new ArrayList<SelectItem>();
+		listVille.add(new SelectItem("Tunis"));
+		listVille.add(new SelectItem("Manouba"));
+		return listVille;
+	}
+
+	public void setListVille(List<SelectItem> listVille) {
+		this.listVille = listVille;
 	}
 
 }
