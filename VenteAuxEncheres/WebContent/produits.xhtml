@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Ajouter un nouveau produit</title>
+</h:head>
+<h:body>
+
+	<p:messages showDetail="false" showSummary="true" />
+
+	<h:form id="form1">
+		<h:panelGrid id="ProduitDetail" columns="3">
+			<h:outputText value="Nom produit :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{vendeurMB.produit.nomProduit}" required="true"
+				label="Nom produit" />
+			<h:outputText value="Description  :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputTextarea value="#{vendeurMB.produit.description}"
+				required="true" label="Description ">
+			</p:inputTextarea>
+			<h:outputText value="Quantite en stock:" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{vendeurMB.produit.qteStock}" required="true"
+				label="Identifiant">
+			</p:inputText>
+			<h:outputText value="Toutes les categories :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:selectOneMenu id="choixCategorie" value="#{vendeurMB.idCateg}"
+				immediate="true">
+
+				<f:selectItems value="#{vendeurMB.categList}" />
+
+			</p:selectOneMenu>
+		</h:panelGrid>
+
+		<h:panelGrid id="addButton" columns="2" style="margin-left: 260px">
+
+			<p:commandButton id="addproduit" value="Ajouter"
+				actionListener="#{vendeurMB.addProduit}" ajax="false"
+				update="produitList" icon="ui-icon-check" />
+			<p:commandButton value="Annuler" type="reset" icon="ui-icon-cancel" />
+
+		</h:panelGrid>
+	</h:form>
+	<h:form id="form3">
+		<p:dataTable var="s" value="#{vendeurMB.produitList}" border="1"
+			widgetVar="produitList">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Nom produit"></h:outputText>
+				</f:facet>
+				<h:outputText id="nomProduit" value="#{s.nomProduit}"></h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Description"></h:outputText>
+				</f:facet>
+				<h:outputText id="description" value="#{s.description}"></h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Quantite stock"></h:outputText>
+				</f:facet>
+				<h:outputText id="qteStock" value="#{s.qteStock}"></h:outputText>
+			</p:column>
+			<p:column>
+				<p:commandButton id="lancerEnchere" value="Lancer l'enchere"
+					action="#{vendeurMB.lancerEnchere}" ajax="false">
+					<f:setPropertyActionListener value="#{s}"
+						target="#{vendeurMB.produit}" />
+				</p:commandButton>
+
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>

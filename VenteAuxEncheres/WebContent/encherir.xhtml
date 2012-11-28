@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Encherir produit</title>
+</h:head>
+<h:body>
+
+	
+
+	<h:form id="form3">
+	
+		<h:panelGrid id="actEnchereDetail" columns="2">
+			<h:outputText value="Date début :" />
+				<h:outputText value="#{VEnchereMB.enchere.dateDebut}" />
+					<h:outputText value="Date fin :" />
+				<h:outputText value="#{VEnchereMB.enchere.dateFin}" />
+				<h:outputText value="Prix intial :" />
+				<h:outputText value="#{VEnchereMB.enchere.prixInitial}" />
+				</h:panelGrid>
+				<h:panelGrid columns="3">
+			<h:outputText value="Prix proposé :" />
+			<p:inputText value="#{AEnchereMB.aEnchere.prixPropose}" required="true"
+				label="Prix propose" />
+				<p:commandButton id="addEnchere" value="Enchérir"
+				actionListener="#{AEnchereMB.addActEnchere}" ajax="false" />
+			</h:panelGrid>
+
+			
+
+
+	</h:form>
+</h:body>
+</html>

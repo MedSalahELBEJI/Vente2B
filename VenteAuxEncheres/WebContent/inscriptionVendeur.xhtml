@@ -1,0 +1,83 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Inscription d'un vendeur</title>
+</h:head>
+<h:body>
+	<h:form id="form1">
+Commencez à utiliser notre site <br />
+Créez votre compte personnel.<br />
+
+
+		<p:messages showDetail="false" showSummary="true" />
+		<h:panelGrid id="VendeurDetail" columns="3">
+
+			<h:outputText value="Nom :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{inscriptionMB.vendeur.nom}" required="true"
+				label="Nom " />
+			<h:outputText value="Prénom :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{inscriptionMB.vendeur.prenom}" required="true"
+				label="Prénom ">
+			</p:inputText>
+			<h:outputText value="Identifiant:" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{inscriptionMB.vendeur.login}" required="true"
+				label="Identifiant">
+
+			</p:inputText>
+
+			<h:outputText value=" Mot de passe :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:password value="#{inscriptionMB.vendeur.password}" required="true"
+				label="Mot de passe" feedback="true" />
+			<h:outputText value="Date de naissance :" />
+			<h:outputText value="" />
+			<p:calendar value="#{inscriptionMB.vendeur.dateNaissance}" id="popupCal" />
+			<h:outputText value="Adresse e-mail :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{inscriptionMB.vendeur.email}" required="true"
+				label="Adresse e-mail" validatorMessage="Invalid Email">
+				<f:validateRegex pattern=".+@.+\.[a-z]+"></f:validateRegex>
+			</p:inputText>
+
+			<h:outputText value="Pays" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:selectOneMenu id="choixpays" value="#{inscriptionMB.vendeur.pays}">
+				<f:selectItems value="#{inscriptionMB.listPays}" />
+
+			</p:selectOneMenu>
+			<h:outputText value="Ville" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:selectOneMenu value="#{inscriptionMB.vendeur.ville}" id="ville">
+				<f:selectItems value="#{inscriptionMB.listVille}" />
+			</p:selectOneMenu>
+			<h:outputText value="Code postal :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{inscriptionMB.vendeur.zipCode}" required="true"
+				label="Code Postal" feedback="true" />
+			<h:outputText value="N° Téléphone :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{inscriptionMB.vendeur.telephone}"
+				required="true" label="N° Téléphone" feedback="true" />
+			<h:outputText value="TVA code :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{inscriptionMB.vendeur.tvaCode}" required="true"
+				label="TVA code" feedback="true" />
+		</h:panelGrid>
+
+		<h:panelGrid id="addButton" columns="2">
+			<p:commandButton id="addUser" value="Ajouter"
+				action="#{inscriptionMB.addVendeur}" ajax="false"
+				update="vendeurList" icon="ui-icon-check" />
+			<p:commandButton value="Annuler" type="reset" icon="ui-icon-cancel" />
+		</h:panelGrid>
+
+	</h:form>
+</h:body>
+</html>

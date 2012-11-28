@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Ajouter un nouveau produit</title>
+</h:head>
+<h:body>
+
+	<h:form id="form1">
+		<h:panelGrid id="ProduitDetail" columns="2">
+			<h:outputText value="Nom produit :" />
+			<p:inputText value="#{vendeurMB.produit.nomProduit}" required="true"
+				label="Nom produit" readonly="true" />
+			<h:outputText value="Description  :" />
+			<p:inputTextarea value="#{vendeurMB.produit.description}"
+				required="true" label="Description" readonly="true">
+			</p:inputTextarea>
+			<h:outputText value="Quantité stock :" />
+			<p:inputText value="#{vendeurMB.produit.qteStock}" required="true"
+				label="Identifiant" readonly="true">
+			</p:inputText>
+			<h:outputText value="Prix initial :" />
+			<p:inputText value="#{VEnchereMB.enchere.prixInitial}" required="true"
+				label="Identifiant">
+			</p:inputText>
+			<h:outputText value="Date fin :" />
+			<p:calendar value="#{VEnchereMB.enchere.dateFin}" id="popupCal" />
+			
+			
+
+		</h:panelGrid>
+
+		<h:panelGrid id="addButton" columns="2" style="margin-left: 260px">
+
+			<p:commandButton id="lancerEnchere" value="Lancer Enchère"
+				actionListener="#{VEnchereMB.lancerProduit}" ajax="false"
+				update="produitList" icon="ui-icon-check" />
+			<p:commandButton value="Annuler" type="reset" icon="ui-icon-cancel" />
+
+		</h:panelGrid>
+	</h:form>
+</h:body>
+
+
+</html>

@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Welcome to login page</title>
+</h:head>
+<h:body style=" position:absolute;
+   top:30%;
+   left:35%;">
+
+		<p:messages showDetail="false" showSummary="true" />
+	<center>
+
+		<h:form id="dialog" header="Login" widgetVar="dlg">
+
+			<h:panelGrid columns="2" cellpadding="3" 
+				style="width : 254px; height : 127px;">
+				<h:outputLabel for="username" value="Username:" />
+				<p:inputText value="#{loginBean.username}" id="username"
+					required="true" label="username" style="height : 33px; width : 245px;" />
+
+				<h:outputLabel for="password" value="Password:" />
+				<h:inputSecret value="#{loginBean.password}" id="password"
+					required="true" label="password"
+					style="height : 33px; width : 245px;" />
+
+				<f:facet name="footer">
+					<center style="margin-left:80px">
+						<p:commandButton ajax="false" id="loginButton"
+							value="Se connecter" action="#{loginBean.login}" update=":growl"
+							oncomplete="handleLoginRequest(xhr, status, args)" />
+					</center>
+				</f:facet>
+			</h:panelGrid>
+
+		</h:form>
+	</center>
+
+	<script type="text/javascript">  
+    function handleLoginRequest(xhr, status, args) {  
+        if(args.validationFailed || !args.loggedIn) {  
+            jQuery('#dialog');  
+        } else {  
+            dlg.hide();  
+           
+        }  
+    }  
+</script>
+</h:body>
+</html>

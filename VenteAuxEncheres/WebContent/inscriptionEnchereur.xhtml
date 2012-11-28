@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Inscription d'un enchéreur</title>
+</h:head>
+<h:body>
+
+	<p:messages showDetail="false" showSummary="true" />
+
+	<h:form id="form1">
+		<h:panelGrid id="EnchereurDetail" columns="3">
+			<h:outputText value="Nom :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{inscriptionMB.enchereur.nom}" required="true"
+				label="Nom " />
+			<h:outputText value="Prénom :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{inscriptionMB.enchereur.prenom}"
+				required="true" label="Prénom ">
+			</p:inputText>
+			<h:outputText value="Identifiant:" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{inscriptionMB.enchereur.login}" required="true"
+				label="Identifiant">
+			</p:inputText>
+			<h:outputText value=" Mot de passe :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:password value="#{inscriptionMB.enchereur.password}"
+				required="true" label="Mot de passe" feedback="true" />
+			<h:outputText value="Date de naissance :" />
+			<h:outputText value="" />
+			<p:calendar value="#{inscriptionMB.enchereur.dateNaissance}"
+				id="popupCal" />
+
+			<h:outputText value="Adresse e-mail :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{inscriptionMB.enchereur.email}" required="true"
+				label="Adresse e-mail" validatorMessage="Invalid Email">
+				<f:validateRegex pattern=".+@.+\.[a-z]+"></f:validateRegex>
+			</p:inputText>
+			<h:outputText value="Pays" />
+			<h:outputText value="(*)" style="color: red" />
+			<h:selectOneMenu id="choixpays"
+				value="#{inscriptionMB.enchereur.pays}" immediate="true">
+				<f:selectItems value="#{inscriptionMB.listPays}" />
+			</h:selectOneMenu>
+			<h:outputText value="Ville" />
+			<h:outputText value="(*)" style="color: red" />
+			<h:selectOneMenu value="#{inscriptionMB.enchereur.ville}" id="ville"
+				required="true" label="Ville">
+				<f:selectItems value="#{inscriptionMB.listVille}" />
+			</h:selectOneMenu>
+			<h:outputText value="Code postal :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{inscriptionMB.enchereur.zipCode}"
+				required="true" label="Code Postal" feedback="true" />
+			<h:outputText value="N° Téléphone :" />
+			<h:outputText value="(*)" style="color: red" />
+			<p:inputText value="#{inscriptionMB.enchereur.telephone}"
+				required="true" label="N° Téléphone" feedback="true" />
+		</h:panelGrid>
+
+		<h:panelGrid id="addButton" columns="2" style="margin-left: 260px">
+
+			<p:commandButton id="addUser" value="Ajouter"
+				action="#{inscriptionMB.addEnchereur}" ajax="false"
+				update="enchereurList" icon="ui-icon-check" />
+			<p:commandButton value="Annuler" type="reset" icon="ui-icon-cancel" />
+
+		</h:panelGrid>
+	</h:form>
+
+</h:body>
+</html>

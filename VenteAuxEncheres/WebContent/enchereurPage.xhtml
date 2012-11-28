@@ -1,0 +1,115 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Liste des enchères en cours</title>
+</h:head>
+<h:body>
+
+	<p:messages showDetail="false" showSummary="true" />
+	
+<h:form id="form1">
+<h:panelGroup 
+     style="top:2%;left:85%;">
+     <p>Welcome, #{loginBean.username}</p>
+     <p:commandLink  id="logout" value="Se déconnecter" action="#{loginBean.logout}" ajax="false" />
+    </h:panelGroup>
+
+		<p:dataTable var="s" value="#{AEnchereMB.aEnchereList}" border="1">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Nom produit"></h:outputText>
+				</f:facet>
+				<h:outputText id="nomProduit" value="#{s.produit.nomProduit}"></h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Description"></h:outputText>
+				</f:facet>
+				<h:outputText id="description" value="#{s.produit.description}"></h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Vendeur"></h:outputText>
+				</f:facet>
+				<h:outputText id="qteStock" value="#{s.produit.vendeur.nom}"></h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Date mise enchère"></h:outputText>
+				</f:facet>
+				<h:outputText id="dateDebut" value="#{s.date}">
+					<f:convertDateTime pattern="dd/MM/yyyy" type="date" />
+				</h:outputText>
+
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="prix proposé"></h:outputText>
+				</f:facet>
+				<h:outputText id="prix" value="#{s.prixPropose}">
+					
+				</h:outputText>
+
+			</p:column>
+			
+		</p:dataTable>
+	</h:form>
+
+	<h:form id="form3">
+		<p:dataTable var="s" value="#{vendeurMB.allEnchereList}" border="1">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Nom produit"></h:outputText>
+				</f:facet>
+				<h:outputText id="nomProduit" value="#{s.produit.nomProduit}"></h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Description"></h:outputText>
+				</f:facet>
+				<h:outputText id="description" value="#{s.produit.description}"></h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Vendeur"></h:outputText>
+				</f:facet>
+				<h:outputText id="qteStock" value="#{s.produit.vendeur.nom}"></h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Date début"></h:outputText>
+				</f:facet>
+				<h:outputText id="dateDebut" value="#{s.dateDebut}">
+					<f:convertDateTime pattern="dd/MM/yyyy" type="dateDebut" />
+				</h:outputText>
+
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Date fin"></h:outputText>
+				</f:facet>
+				<h:outputText id="dateFin" value="#{s.dateFin}">
+					<f:convertDateTime pattern="dd/MM/yyyy" type="date" />
+				</h:outputText>
+
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Prix en cours "></h:outputText>
+				</f:facet>
+				<h:outputText id="prixpropose" value="#{s.prixInitial}"></h:outputText>
+			</p:column>
+			<p:column>
+				<p:commandButton id="enchere" value="Enchere"
+					action="#{VEnchereMB.info}" ajax="false" >
+				<f:setPropertyActionListener value="#{s}"
+					target="#{VEnchereMB.enchere}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>

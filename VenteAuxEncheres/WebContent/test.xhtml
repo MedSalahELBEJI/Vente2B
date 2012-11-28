@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Ajouter un nouveau produit</title>
+</h:head>
+<h:body>
+
+	<h:panelGroup rendered="#{loginBean.loggedIn}"
+					style=" position:absolute; top:2%;left:85%;">
+					<p>Welcome, #{loginBean.username}</p> <a href="login.xhtml">Se déconnecter !</a>
+				</h:panelGroup>
+</h:body>
+
+
+</html>
