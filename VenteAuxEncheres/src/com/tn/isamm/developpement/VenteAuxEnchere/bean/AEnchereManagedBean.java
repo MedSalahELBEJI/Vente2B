@@ -93,9 +93,9 @@ public class AEnchereManagedBean {
 		try {
 			
 			Enchereur enchereur = loginMBean.getEnchereur();
-			Produit prod = VEnchereMB.getEnchere().getProduit();
+		//	Produit prod = VEnchereMB.getEnchere().getProduit();
 			aEnchere.setEnchereur(enchereur);
-			aEnchere.setProduit(prod);
+		//	aEnchere.setProduit(prod);
 			aEnchere.setDate(new Date());
 			AEnchereDao.encherirProduit(aEnchere);
 		} catch (Exception e) {

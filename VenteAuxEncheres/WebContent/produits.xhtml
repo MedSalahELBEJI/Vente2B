@@ -8,10 +8,13 @@
 	<title>Ajouter un nouveau produit</title>
 </h:head>
 <h:body>
-
+	<h:form id="form2">
+		<a href="MesProduits.xhtml">Mes produits</a>
+	</h:form>
 	<p:messages showDetail="false" showSummary="true" />
 
-	<h:form id="form1">
+	<h:form id="form1" enctype="multipart/form-data">
+
 		<h:panelGrid id="ProduitDetail" columns="3">
 			<h:outputText value="Nom produit :" />
 			<h:outputText value="(*)" style="color: red" />
@@ -35,6 +38,11 @@
 				<f:selectItems value="#{vendeurMB.categList}" />
 
 			</p:selectOneMenu>
+
+			<h:outputText value="Entrez une image" />
+			<h:outputText value="" />
+			<p:fileUpload value="#{vendeurMB.file}" mode="simple" />
+			
 		</h:panelGrid>
 
 		<h:panelGrid id="addButton" columns="2" style="margin-left: 260px">
@@ -46,36 +54,6 @@
 
 		</h:panelGrid>
 	</h:form>
-	<h:form id="form3">
-		<p:dataTable var="s" value="#{vendeurMB.produitList}" border="1"
-			widgetVar="produitList">
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Nom produit"></h:outputText>
-				</f:facet>
-				<h:outputText id="nomProduit" value="#{s.nomProduit}"></h:outputText>
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Description"></h:outputText>
-				</f:facet>
-				<h:outputText id="description" value="#{s.description}"></h:outputText>
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Quantite stock"></h:outputText>
-				</f:facet>
-				<h:outputText id="qteStock" value="#{s.qteStock}"></h:outputText>
-			</p:column>
-			<p:column>
-				<p:commandButton id="lancerEnchere" value="Lancer l'enchere"
-					action="#{vendeurMB.lancerEnchere}" ajax="false">
-					<f:setPropertyActionListener value="#{s}"
-						target="#{vendeurMB.produit}" />
-				</p:commandButton>
 
-			</p:column>
-		</p:dataTable>
-	</h:form>
 </h:body>
 </html>

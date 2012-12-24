@@ -17,7 +17,7 @@
      <p:commandLink  id="logout" value="Se déconnecter" action="#{loginBean.logout}" ajax="false" />
     </h:panelGroup>
 
-		<p:dataTable var="s" value="#{AEnchereMB.aEnchereList}" border="1">
+		<!--<p:dataTable var="s" value="#{AEnchereMB.aEnchereList}" border="1">
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Nom produit"></h:outputText>
@@ -56,28 +56,20 @@
 			</p:column>
 			
 		</p:dataTable>
-	</h:form>
+	--></h:form>
 
-	<h:form id="form3">
+<h:form id="form3">
+
 		<p:dataTable var="s" value="#{vendeurMB.allEnchereList}" border="1">
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Nom produit"></h:outputText>
 				</f:facet>
-				<h:outputText id="nomProduit" value="#{s.produit.nomProduit}"></h:outputText>
+				<p:dataList value="#{s.produit}" var="a" type="ordered" itemType="A">  
+				   #{a.nomProduit}
+				</p:dataList>
 			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Description"></h:outputText>
-				</f:facet>
-				<h:outputText id="description" value="#{s.produit.description}"></h:outputText>
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Vendeur"></h:outputText>
-				</f:facet>
-				<h:outputText id="qteStock" value="#{s.produit.vendeur.nom}"></h:outputText>
-			</p:column>
+	
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Date début"></h:outputText>

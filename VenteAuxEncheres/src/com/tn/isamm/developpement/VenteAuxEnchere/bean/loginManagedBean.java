@@ -12,8 +12,11 @@ import javax.servlet.http.HttpSession;
 
 import com.tn.isamm.developpement.VenteAuxEnchere.dao.EnchereurDao;
 import com.tn.isamm.developpement.VenteAuxEnchere.dao.VendeurDao;
+import com.tn.isamm.developpement.VenteAuxEnchere.dao.adminstrateurDao;
 import com.tn.isamm.developpement.VenteAuxEnchere.daoImp.EnchereurDaoImp;
 import com.tn.isamm.developpement.VenteAuxEnchere.daoImp.VendeurDaoImp;
+import com.tn.isamm.developpement.VenteAuxEnchere.daoImp.adminstrateurDaoImp;
+import com.tn.isamm.developpement.VenteAuxEnchere.model.Administrateur;
 import com.tn.isamm.developpement.VenteAuxEnchere.model.Enchereur;
 import com.tn.isamm.developpement.VenteAuxEnchere.model.Vendeur;
 
@@ -27,13 +30,16 @@ public class loginManagedBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<Enchereur> enchereurList;
 	private List<Vendeur> vendeurList;
+	private List<Administrateur> adminList;
 	
 	private EnchereurDao enchereurDao = new EnchereurDaoImp();
 	private VendeurDao vendeurDao = new VendeurDaoImp();
+	private adminstrateurDao adminDao= new adminstrateurDaoImp();
 	private String username;
 	private String password;
 	private Vendeur vendeur = new Vendeur();
 	private Enchereur enchereur = new Enchereur();
+	private Administrateur administrateur= new Administrateur();
 	public List<Enchereur> getEnchereurList() {
 		return enchereurList;
 	}
@@ -82,6 +88,15 @@ public class loginManagedBean implements Serializable {
 	public void setEnchereur(Enchereur enchereur) {
 		this.enchereur = enchereur;
 	}
+	
+
+	public adminstrateurDao getAdminDao() {
+		return adminDao;
+	}
+
+	public void setAdminDao(adminstrateurDao adminDao) {
+		this.adminDao = adminDao;
+	}
 
 	@PostConstruct
 	public void initBean() {
@@ -89,6 +104,7 @@ public class loginManagedBean implements Serializable {
 		try {
 			enchereurList = enchereurDao.getAll();
 			vendeurList = vendeurDao.getAll();
+			adminList= adminDao.getAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -120,10 +136,22 @@ public class loginManagedBean implements Serializable {
 					trouve = true;
 					vendeur = vendeurList.get(i);
 					System.out.println(vendeur.getLogin());
-					redirect = "produits?faces-redirect=true";
+					redirect = "ajouterProduitsVendeur?faces-redirect=true";
 
 				}
 			}
+			for (int i = 0; i < adminList.size(); i++) {
+
+				if (adminList.get(i).getLogin().equals(username)
+						&& adminList.get(i).getPassword().equals(password)) {
+					trouve = true;
+					administrateur = adminList.get(i);
+					System.out.println(administrateur.getLogin());
+					redirect = "gestionEnchereur?faces-redirect=true";
+
+				}
+			}
+			
 			if (trouve == false) {
 
 				context.addMessage("dialog:username", new FacesMessage(

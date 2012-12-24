@@ -19,6 +19,7 @@ public class Produit implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long idProduit;
 	private String description;
+	private byte[] image;
 	private long qteStock;
 	private String nomProduit;
 	@OneToMany(cascade = CascadeType.MERGE)
@@ -29,11 +30,29 @@ public class Produit implements Serializable {
 	private Categorie categorie;
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Vendeur vendeur;
+	
 	private static final long serialVersionUID = 1L;
-
+	private String URL;
 	public Produit() {
 		super();
 	}   
+	
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+	public String getURL() {
+		return URL;
+	}
+
+	public void setURL(String uRL) {
+		URL = uRL;
+	}
+
 	public long getIdProduit() {
 		return this.idProduit;
 	}

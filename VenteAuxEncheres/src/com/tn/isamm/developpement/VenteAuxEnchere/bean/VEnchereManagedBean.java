@@ -1,11 +1,16 @@
 package com.tn.isamm.developpement.VenteAuxEnchere.bean;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
+
+import org.primefaces.model.DualListModel;
 
 import com.tn.isamm.developpement.VenteAuxEnchere.dao.VEnchereDao;
 import com.tn.isamm.developpement.VenteAuxEnchere.daoImp.VEnchereDaoImp;
@@ -19,11 +24,23 @@ public class VEnchereManagedBean {
 
 	private VEnchereDao venchereDao = new VEnchereDaoImp();
 	private VEnchere enchere = new VEnchere();
+	
+	
 	@ManagedProperty(value = "#{loginBean}")
 	private loginManagedBean loginMBean;
 
 	@ManagedProperty(value = "#{vendeurMB}")
 	private vendeurManagedBean vendeurMBean;
+
+	private Produit[] selectedProduits;
+	
+	public Produit[] getSelectedProduits() {
+		return selectedProduits;
+	}
+
+	public void setSelectedProduits(Produit[] selectedProduits) {
+		this.selectedProduits = selectedProduits;
+	}
 
 	public VEnchere getEnchere() {
 		return enchere;
@@ -67,8 +84,13 @@ public class VEnchereManagedBean {
 	public void lancerProduit(ActionEvent actionEvent) {
 
 		try {
+			 
+			
 			Vendeur vendeur = loginMBean.getVendeur();
-			Produit prod = vendeurMBean.getProduit();
+			System.out.println("bbbbbbbbb=="+selectedProduits[1].getNomProduit());
+			List<Produit> prod = new ArrayList(Arrays.asList(selectedProduits));
+			System.out.println("ccccccc=="+prod.get(1).getNomProduit());
+			
 			enchere.setProduit(prod);
 			enchere.setVendeur(vendeur);
 			enchere.setEtat("En cours");

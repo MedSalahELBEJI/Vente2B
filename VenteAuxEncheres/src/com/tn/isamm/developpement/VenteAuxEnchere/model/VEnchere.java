@@ -3,6 +3,7 @@ package com.tn.isamm.developpement.VenteAuxEnchere.model;
 import java.io.Serializable;
 import java.lang.String;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -28,8 +29,8 @@ public class VEnchere implements Serializable {
 	private String prixAchatImmediat;
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Vendeur vendeur;
-	@OneToOne(cascade = CascadeType.MERGE)
-	private Produit produit;
+	@OneToMany(cascade = CascadeType.MERGE)
+	private List<Produit> produit;
 	private static final long serialVersionUID = 1L;
 
 	public VEnchere() {
@@ -80,12 +81,13 @@ public class VEnchere implements Serializable {
 	public void setVendeur(Vendeur vendeur) {
 		this.vendeur = vendeur;
 	}
-	public Produit getProduit() {
+	public List<Produit> getProduit() {
 		return produit;
 	}
-	public void setProduit(Produit produit) {
+	public void setProduit(List<Produit> produit) {
 		this.produit = produit;
 	}
+	
 	
 	
    

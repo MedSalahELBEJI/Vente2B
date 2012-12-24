@@ -84,6 +84,8 @@ public class VendeurDaoImp implements VendeurDao {
 		String sql = "SELECT p FROM VEnchere p  ";
 		Query query = em.createQuery(sql, VEnchere.class);
 		List<VEnchere> list = query.getResultList();
+		int  p1 =list.get(0).getProduit().size();
+		System.out.println("aaaaaaaaaaa===="+p1);
 		if (list.size() != 0) {
 			return list;
 		} else {
