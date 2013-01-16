@@ -18,7 +18,7 @@ public class VEnchereDaoImp implements VEnchereDao {
 	public void lancerProduit(VEnchere venchere) {
 		// TODO Auto-generated method stub
 		em.getTransaction().begin();
-		em.persist(venchere);
+		em.merge(venchere);
 		em.getTransaction().commit();
 	}
 

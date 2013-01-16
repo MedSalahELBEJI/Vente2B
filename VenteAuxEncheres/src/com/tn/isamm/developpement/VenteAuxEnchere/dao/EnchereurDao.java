@@ -7,11 +7,19 @@ import com.tn.isamm.developpement.VenteAuxEnchere.model.Enchereur;
 
 public interface EnchereurDao {
 
+	
+
+	public void supprimerEnchereur(Enchereur enchereur);
+
+	
+	
+	
+	//CRUD Enchereur
 	public void ajouterEnchereur(Enchereur enchereur);
 
 	public void modifierEnchereur(Enchereur enchereur);
 
-	public void supprimerEnchereur(Enchereur enchereur);
+	public void supprimerEnchereur(Long id);
 
 	public Enchereur findById(long id);
 

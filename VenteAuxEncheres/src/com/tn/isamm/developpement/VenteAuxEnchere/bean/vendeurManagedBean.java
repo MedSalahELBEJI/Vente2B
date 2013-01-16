@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -29,7 +30,6 @@ import com.tn.isamm.developpement.VenteAuxEnchere.model.Vendeur;
 
 @ManagedBean(name = "vendeurMB")
 @SessionScoped
-
 public class vendeurManagedBean implements Serializable {
 
 	/**
@@ -40,17 +40,23 @@ public class vendeurManagedBean implements Serializable {
 	private Produit produit = new Produit();
 	private List<Vendeur> vendeurList;
 	private List<Produit> produitList;
-	private List<VEnchere> allEnchereList;
+	private List<VEnchere> allEnchereList = null;
+	private List<VEnchere> vendeurEnchereList = null;
 	private List<SelectItem> categList;
-	private String destination = "C:\\Users\\malek.bensalem\\git\\Vente2B\\VenteAuxEncheres\\WebContent\\images\\";
+	private String destination = "E:\\Cours ISAMM 2012-2013\\Atelier J2EE\\VenteAuxEncheres\\VenteAuxEncheres\\WebContent\\images\\";
 	private long idCateg;
 	private byte[] img;
 	private String url;
 	private UploadedFile file;
-	
+
 	@ManagedProperty(value = "#{loginBean}")
 	private loginManagedBean loginMBean;
 
+	
+	
+	
+	
+	
 	
 	public VendeurDao getVendeurDao() {
 		return vendeurDao;
@@ -77,9 +83,9 @@ public class vendeurManagedBean implements Serializable {
 	}
 
 	public List<Produit> getProduitList() {
-		
-			produitList = vendeurDao.getAllProduit(loginMBean.getVendeur()
-					.getLogin());
+
+		produitList = vendeurDao.getAllProduit(loginMBean.getVendeur()
+				.getLogin());
 		return this.produitList;
 	}
 
@@ -88,18 +94,14 @@ public class vendeurManagedBean implements Serializable {
 	}
 
 	
-	
-	
-//	 @PostConstruct
-//	 public void initBean() {
-//	
-//	 try {
-//	 produitList = vendeurDao.getAllProduit(loginMBean.getVendeur()
-//	 .getLogin());
-//	 } catch (Exception e) {
-//	 e.printStackTrace();
-//	 }
-//	 }
+	public void initBean() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage("Successful",
+				"Produit Ajouté"));
+		
+		
+		System.out.println("aloors pronto");
+	}
 
 	public UploadedFile getFile() {
 		return file;
@@ -125,23 +127,27 @@ public class vendeurManagedBean implements Serializable {
 		this.url = url;
 	}
 
+	public List<VEnchere> getVendeurEnchereList() {
 
-
-	public List<VEnchere> getAllEnchereList() {
-		if (allEnchereList == null)
-		
-			allEnchereList = vendeurDao.getAllProduit();
-		return this.allEnchereList;
+		vendeurEnchereList = vendeurDao.getAllEncheres(loginMBean.getVendeur()
+				.getLogin());
+		return vendeurEnchereList;
 	}
 
+	public void setVendeurEnchereList(List<VEnchere> vendeurEnchereList) {
+		this.vendeurEnchereList = vendeurEnchereList;
+	}
 
+	public List<VEnchere> getAllEnchereList() {
+
+	if(allEnchereList == null)
+		allEnchereList = vendeurDao.getAllProduit();
+		return this.allEnchereList;
+	}
 
 	public void setAllEnchereList(List<VEnchere> allEnchereList) {
 		this.allEnchereList = allEnchereList;
 	}
-	
-	
-	
 
 	public long getIdCateg() {
 		return idCateg;
@@ -153,10 +159,10 @@ public class vendeurManagedBean implements Serializable {
 
 	public List<SelectItem> getCategList() {
 		List<SelectItem> SI = new ArrayList<SelectItem>();
-		List<Categorie> listCategorie =vendeurDao.listCategorie();
+		List<Categorie> listCategorie = vendeurDao.listCategorie();
 		for (int i = 0; i < listCategorie.size(); i++) {
-			SI.add(new SelectItem(listCategorie.get(i).getIdCategorie(), listCategorie.get(i)
-					.getNomCat()));
+			SI.add(new SelectItem(listCategorie.get(i).getIdCategorie(),
+					listCategorie.get(i).getNomCat()));
 		}
 		return SI;
 	}
@@ -175,7 +181,7 @@ public class vendeurManagedBean implements Serializable {
 		img = file.getContents();
 		try {
 			copyFile(file.getFileName(), file.getInputstream());
-			this.url = "/images/"+ file.getFileName();
+			this.url = "/images/" + file.getFileName();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -199,7 +205,7 @@ public class vendeurManagedBean implements Serializable {
 		}
 
 	}
-	
+
 	public void copyFile(String fileName, InputStream in) {
 		try {
 
@@ -219,7 +225,7 @@ public class vendeurManagedBean implements Serializable {
 			out.close();
 
 			System.out.println("New file created!");
-			
+
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
@@ -227,8 +233,8 @@ public class vendeurManagedBean implements Serializable {
 
 	public String lancerEnchere() {
 		String redirect = null;
-		System.out.println("aaaaaaaaaaaaaaa" + this.produit.getIdProduit());
-		redirect = "VEnchere?faces-redirect=true";
+		System.out.println("aaaaallllllllllll" + this.produit.getIdProduit());
+		// redirect = "VEnchere?faces-redirect=true";
 		return redirect;
 	}
 
@@ -239,24 +245,21 @@ public class vendeurManagedBean implements Serializable {
 	public void setLoginMBean(loginManagedBean loginMBean) {
 		this.loginMBean = loginMBean;
 	}
-	public boolean isAllowed()
-	{
+
+	public boolean isAllowed() {
 		return true;
 	}
-	
-	public String mesProduits()
-	{
-		
-		
+
+	public String mesProduits() {
+
 		String redirect = "vendeurProduit?faces-redirect=true";
 		return redirect;
-		
+
 	}
-	
-	public String lancerProduit()
-	{
+
+	public String lancerProduit() {
 		String redirect = "lancerEnchere?faces-redirect=true";
 		return redirect;
-		
+
 	}
 }

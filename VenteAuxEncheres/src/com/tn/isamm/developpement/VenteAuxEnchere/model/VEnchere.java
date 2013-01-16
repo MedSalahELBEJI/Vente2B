@@ -2,7 +2,9 @@ package com.tn.isamm.developpement.VenteAuxEnchere.model;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.*;
@@ -31,11 +33,39 @@ public class VEnchere implements Serializable {
 	private Vendeur vendeur;
 	@OneToMany(cascade = CascadeType.MERGE)
 	private List<Produit> produit;
+	
+	private long dateRes;
+	
 	private static final long serialVersionUID = 1L;
 
 	public VEnchere() {
 		super();
 	}   
+	
+	
+	public long getDateRes() {
+		
+		 Date trialTime = new Date();
+	
+		
+		Calendar now = new GregorianCalendar();
+		now.setTime(trialTime);
+		
+		Calendar morow = new GregorianCalendar();
+		morow.setTime(dateFin);
+		
+		long diffMillis = Math.abs((morow.getTimeInMillis() - now.getTimeInMillis()));
+		dateRes = diffMillis / (24*60*60*1000);
+		
+		return dateRes+1;
+	}
+
+
+	public void setDateRes(long dateRes) {
+		this.dateRes = dateRes;
+	}
+
+
 	public long getIdEnchere() {
 		return this.idEnchere;
 	}

@@ -19,4 +19,13 @@ public class ProduitDaoImp implements produitDao {
 		return result;
 	}
 
+	@Override
+	public void supprimerProduit(Long id) {
+		// TODO Auto-generated method stub
+		Produit obj = getById(id);
+		em.getTransaction().begin();
+		em.remove(obj);
+		em.getTransaction().commit();
+	}
+
 }

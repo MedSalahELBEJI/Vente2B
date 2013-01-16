@@ -2,6 +2,7 @@ package com.tn.isamm.developpement.VenteAuxEnchere.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -22,8 +23,8 @@ public class ActEnchere implements Serializable {
 	private Date date;
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Enchereur enchereur;
-	@OneToOne(cascade = CascadeType.MERGE)
-	private Produit produit;
+	@OneToMany(cascade = CascadeType.MERGE)
+	private List<Produit> produit;
 	private static final long serialVersionUID = 1L;
 
 	public ActEnchere() {
@@ -55,12 +56,13 @@ public class ActEnchere implements Serializable {
 	public void setEnchereur(Enchereur enchereur) {
 		this.enchereur = enchereur;
 	}
-	public Produit getProduit() {
+	public List<Produit> getProduit() {
 		return produit;
 	}
-	public void setProduit(Produit produit) {
+	public void setProduit(List<Produit> produit) {
 		this.produit = produit;
 	}
+
 	
 	
    

@@ -1,12 +1,15 @@
 package com.tn.isamm.developpement.VenteAuxEnchere.daoImp;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+
 import com.tn.isamm.developpement.VenteAuxEnchere.dao.VendeurDao;
+import com.tn.isamm.developpement.VenteAuxEnchere.model.ActEnchere;
 import com.tn.isamm.developpement.VenteAuxEnchere.model.Categorie;
 import com.tn.isamm.developpement.VenteAuxEnchere.model.Produit;
 import com.tn.isamm.developpement.VenteAuxEnchere.model.VEnchere;
@@ -80,20 +83,18 @@ public class VendeurDaoImp implements VendeurDao {
 	}
 
 	public List<VEnchere> getAllProduit() {
-		// TODO Auto-generated method stub
-		String sql = "SELECT p FROM VEnchere p  ";
+	
+		String sql = "SELECT p FROM VEnchere p  WHERE p.dateFin > CURRENT_DATE ";
 		Query query = em.createQuery(sql, VEnchere.class);
 		List<VEnchere> list = query.getResultList();
-		int  p1 =list.get(0).getProduit().size();
-		System.out.println("aaaaaaaaaaa===="+p1);
+		
+
 		if (list.size() != 0) {
 			return list;
 		} else {
 			return null;
 		}
 	}
-
-	
 
 	public Categorie findByID(long id) {
 		// TODO Auto-generated method stub
@@ -113,6 +114,40 @@ public class VendeurDaoImp implements VendeurDao {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public List<VEnchere> getAllEncheres(String username) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT p FROM VEnchere p ,Vendeur v WHERE p.vendeur.idPersonne=v.idPersonne AND v.login='"
+				+ username + "'";
+		Query query = em.createQuery(sql, VEnchere.class);
+		List<VEnchere> list = query.getResultList();
+		
+
+		if (list.size() != 0) {
+			return list;
+		} else {
+			return null;
+		}
+	}
+
+	//return actEnchere de Venchere
+	@Override
+	public List<ActEnchere> getAllActEnchere(VEnchere enchere) {
+		// TODO Auto-generated method stub
+
+		return null;
+		
+	}
+
+	@Override
+	public void supprimerVendeur(Long id) {
+		// TODO Auto-generated method stub
+		Vendeur obj = findById(id);
+		em.getTransaction().begin();
+		em.remove(obj);
+		em.getTransaction().commit();
 	}
 
 }

@@ -78,4 +78,13 @@ public class EnchereurDaoImp implements EnchereurDao{
 		em.persist(actEnchere);
 		em.getTransaction().commit();
 	}
+
+	@Override
+	public void supprimerEnchereur(Long id) {
+		// TODO Auto-generated method stub
+		Enchereur obj = findById(id);
+		em.getTransaction().begin();
+		em.remove(obj);
+		em.getTransaction().commit();
+	}
 }

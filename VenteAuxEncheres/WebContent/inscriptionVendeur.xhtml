@@ -3,17 +3,19 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:composition template="home.xhtml" >
 
 <h:head>
 	<title>Inscription d'un vendeur</title>
 </h:head>
-<h:body>
-	<h:form id="form1">
+<ui:define name="core">
+		<ui:include src="core.xhtml" />
+	<h:form id="form41">
 Commencez à utiliser notre site <br />
 Créez votre compte personnel.<br />
 
 
-		<p:messages showDetail="false" showSummary="true" />
+		<p:growl id="notif" showDetail="true" sticky="true" /> 
 		<h:panelGrid id="VendeurDetail" columns="3">
 
 			<h:outputText value="Nom :" />
@@ -79,5 +81,8 @@ Créez votre compte personnel.<br />
 		</h:panelGrid>
 
 	</h:form>
-</h:body>
+
+		</ui:define>
+
+</ui:composition>
 </html>

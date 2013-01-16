@@ -8,7 +8,8 @@
 		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.VEnchere</class>
 		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.Personne</class>
 		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.Vendeur</class>
-		<class>com.tn.isamm.developpement.VenteAuxEnchere.model.Administrateur</class>
+	<class>com.tn.isamm.developpement.VenteAuxEnchere.model.Administrateur</class>
+	
 	<properties>
 			<property name="javax.persistence.jdbc.password" value="" />
 			<property name="javax.persistence.jdbc.user" value="root" />

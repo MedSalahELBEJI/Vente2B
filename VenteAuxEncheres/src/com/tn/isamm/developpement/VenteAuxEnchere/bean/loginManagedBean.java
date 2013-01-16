@@ -32,14 +32,63 @@ public class loginManagedBean implements Serializable {
 	private List<Vendeur> vendeurList;
 	private List<Administrateur> adminList;
 	
+	private boolean flag = false;
 	private EnchereurDao enchereurDao = new EnchereurDaoImp();
 	private VendeurDao vendeurDao = new VendeurDaoImp();
-	private adminstrateurDao adminDao= new adminstrateurDaoImp();
+	private adminstrateurDao adminDao = new adminstrateurDaoImp();
+	
 	private String username;
 	private String password;
 	private Vendeur vendeur = new Vendeur();
 	private Enchereur enchereur = new Enchereur();
-	private Administrateur administrateur= new Administrateur();
+	private Administrateur admin = new Administrateur();
+	// rendred
+	private boolean checkV = false;
+	private boolean checkE = false;
+	private boolean checkA = false;
+
+	
+	
+	public Administrateur getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Administrateur admin) {
+		this.admin = admin;
+	}
+
+	public boolean isCheckA() {
+		return checkA;
+	}
+
+	public void setCheckA(boolean checkA) {
+		this.checkA = checkA;
+	}
+
+	public List<Administrateur> getAdminList() {
+		return adminList;
+	}
+
+	public void setAdminList(List<Administrateur> adminList) {
+		this.adminList = adminList;
+	}
+
+	public adminstrateurDao getAdminDao() {
+		return adminDao;
+	}
+
+	public void setAdminDao(adminstrateurDao adminDao) {
+		this.adminDao = adminDao;
+	}
+
+	public boolean isFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+
 	public List<Enchereur> getEnchereurList() {
 		return enchereurList;
 	}
@@ -80,7 +129,6 @@ public class loginManagedBean implements Serializable {
 		return vendeur;
 	}
 
-	
 	public Enchereur getEnchereur() {
 		return enchereur;
 	}
@@ -88,14 +136,21 @@ public class loginManagedBean implements Serializable {
 	public void setEnchereur(Enchereur enchereur) {
 		this.enchereur = enchereur;
 	}
-	
 
-	public adminstrateurDao getAdminDao() {
-		return adminDao;
+	public boolean isCheckV() {
+		return checkV;
 	}
 
-	public void setAdminDao(adminstrateurDao adminDao) {
-		this.adminDao = adminDao;
+	public void setCheckV(boolean checkV) {
+		this.checkV = checkV;
+	}
+
+	public boolean isCheckE() {
+		return checkE;
+	}
+
+	public void setCheckE(boolean checkE) {
+		this.checkE = checkE;
 	}
 
 	@PostConstruct
@@ -104,7 +159,7 @@ public class loginManagedBean implements Serializable {
 		try {
 			enchereurList = enchereurDao.getAll();
 			vendeurList = vendeurDao.getAll();
-			adminList= adminDao.getAll();
+			adminList = adminDao.getAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -124,34 +179,43 @@ public class loginManagedBean implements Serializable {
 				if (enchereurList.get(i).getLogin().equals(username)
 						&& enchereurList.get(i).getPassword().equals(password)) {
 					trouve = true;
-					enchereur=enchereurList.get(i);
+					checkV = false;
+					checkE = true;
+					enchereur = enchereurList.get(i);
 					redirect = "enchereurPage?faces-redirect=true";
 
 				}
 			}
-			for (int i = 0; i < vendeurList.size(); i++) {
-
-				if (vendeurList.get(i).getLogin().equals(username)
-						&& vendeurList.get(i).getPassword().equals(password)) {
-					trouve = true;
-					vendeur = vendeurList.get(i);
-					System.out.println(vendeur.getLogin());
-					redirect = "ajouterProduitsVendeur?faces-redirect=true";
-
-				}
-			}
+			
 			for (int i = 0; i < adminList.size(); i++) {
 
 				if (adminList.get(i).getLogin().equals(username)
 						&& adminList.get(i).getPassword().equals(password)) {
 					trouve = true;
-					administrateur = adminList.get(i);
-					System.out.println(administrateur.getLogin());
+					checkV = false;
+					checkE = false;
+					checkA = true;
+					admin = adminList.get(i);
 					redirect = "gestionEnchereur?faces-redirect=true";
 
 				}
 			}
 			
+			
+			
+			for (int i = 0; i < vendeurList.size(); i++) {
+
+				if (vendeurList.get(i).getLogin().equals(username)
+						&& vendeurList.get(i).getPassword().equals(password)) {
+					checkV = true;
+					checkE = false;
+					trouve = true;
+					vendeur = vendeurList.get(i);
+					System.out.println(vendeur.getLogin());
+					redirect = "vendeurPage?faces-redirect=true";
+
+				}
+			}
 			if (trouve == false) {
 
 				context.addMessage("dialog:username", new FacesMessage(
@@ -159,24 +223,22 @@ public class loginManagedBean implements Serializable {
 						"Invalid credentials"));
 			}
 		}
+		flag = true;
 		return redirect;
 
 	}
 
-	public boolean isLoggedIn() {
+	public String logout() {
 
-		return username != null;
-
-	}
-	public String logout()
-	{
-		
 		((HttpSession) FacesContext.getCurrentInstance().getExternalContext()
-				 
-				.getSession(true)).invalidate();
-		
-		String redirect = "login?faces-redirect=true";
+
+		.getSession(true)).invalidate();
+
+		String redirect = "index?faces-redirect=true";
+
+		flag = false;
+
 		return redirect;
-		
+
 	}
 }

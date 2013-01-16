@@ -4,6 +4,86 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-Bienvenue ! <a href ="login.xhtml">Connectez-vous </a>ou  inscrivez-vous en tant <a href="inscriptionEnchereur.xhtml">qu'enchéreur </a> ou comme<a href="inscriptionVendeur.xhtml"> vendeur </a> sur notre site.
-              
+<ui:composition template="home.xhtml">
+	<h:head>
+		<title>Liste des enchères en cours</title>
+	
+
+	</h:head>
+
+	<ui:define name="core">
+		<ui:include src="core.xhtml" />
+
+		<p:scrollPanel style="width:100%;" scrollMode="native">  
+		<p:messages showDetail="false" showSummary="true" />
+		<p:growl id="growl" showDetail="true" sticky="true" />  
+		<h:form id="form3">
+		
+			
+
+			<p:dataTable var="s" value="#{vendeurMB.allEnchereList}" border="1">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Nom produit"></h:outputText>
+					</f:facet>
+					<p:dataList value="#{s.produit}" var="a" type="ordered"
+						itemType="A">  
+				   #{a.nomProduit}
+				</p:dataList>
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Date début"></h:outputText>
+					</f:facet>
+					<h:outputText id="dateDebut" value="#{s.dateDebut}">
+						<f:convertDateTime pattern="dd/MM/yyyy" type="dateDebut" />
+					</h:outputText>
+
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Date fin"></h:outputText>
+					</f:facet>
+					<h:outputText id="dateFin" value="#{s.dateFin}">
+						<f:convertDateTime pattern="dd/MM/yyyy" type="date" />
+					</h:outputText>
+
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Prix en cours "></h:outputText>
+					</f:facet>
+					<h:outputText id="prixpropose" value="#{s.prixInitial}"></h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Vendeur"></h:outputText>
+					</f:facet>
+					<h:outputText id="vendeur" value="#{s.vendeur.nom}"></h:outputText>
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="CountDown"></h:outputText>
+					
+					</f:facet>
+					<h:outputText id="count" value="#{s.dateRes}"></h:outputText>
+				
+				</p:column>
+
+				<p:column>
+					<p:commandButton id="lancerEnchere" value="Lancer l'enchere"
+						action="#{VEnchereMB.flag}" ajax="false">
+						<f:setPropertyActionListener value="#{s}"
+							target="#{VEnchereMB.enchere}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		
+		</p:scrollPanel>
+	</ui:define>
+
+</ui:composition>
 </html>

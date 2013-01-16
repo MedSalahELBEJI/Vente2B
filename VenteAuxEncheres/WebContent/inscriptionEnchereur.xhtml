@@ -3,14 +3,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:composition template="home.xhtml" >
 <h:head>
 	<title>Inscription d'un enchéreur</title>
 </h:head>
-<h:body>
+<ui:define name="core">
+		<ui:include src="core.xhtml" />
 
-	<p:messages showDetail="false" showSummary="true" />
+	<p:growl id="notif" showDetail="true" sticky="true" /> 
 
-	<h:form id="form1">
+	<h:form id="form71">
 		<h:panelGrid id="EnchereurDetail" columns="3">
 			<h:outputText value="Nom :" />
 			<h:outputText value="(*)" style="color: red" />
@@ -73,5 +75,8 @@
 		</h:panelGrid>
 	</h:form>
 
-</h:body>
+
+		</ui:define>
+
+</ui:composition>
 </html>
